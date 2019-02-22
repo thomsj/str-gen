@@ -1,0 +1,78 @@
+{
+  "name": "str-gen",
+  "version": "0.1.0",
+  "description": "generates strings",
+  "keywords": [
+    "string",
+    "generate",
+    "generation"
+  ],
+  "homepage": "https://github.com/thomsj/str-gen#readme",
+  "bugs": "https://github.com/thomsj/str-gen/issues",
+  "license": "MIT",
+  "author": "James Thomson",
+  "files": [
+    "/lib/",
+    "!*.map"
+  ],
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "repository": "thomsj/str-gen",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js,json,md}": [
+        "prettier --write",
+        "git add"
+      ],
+      "*.ts": [
+        "tslint --fix -c ./tslint.json",
+        "prettier --write",
+        "git add"
+      ],
+      "*.test.ts": [
+        "jest --runTestsByPath"
+      ]
+    },
+    "ignore": [
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json"
+    ]
+  },
+  "scripts": {
+    "test": "npm run lint && tsc --noEmit && npm run jest",
+    "prepublishOnly": "npm run lint && tsc && npm run prettier:write && npm run jest",
+    "lint": "npm run tslint && npm run prettier:list",
+    "tslint": "tslint -c ./tslint.json '**/*.ts'",
+    "prettier:list": "prettier -l '**/*.{js,json,md,ts}'",
+    "prettier:write": "prettier --write './lib/**/*.{js,ts}'",
+    "jest": "jest --collectCoverageFrom='src/**/*.ts'",
+    "jest:watch": "npm run jest -- --watch",
+    "tsc": "tsc --sourceMap && npm run prettier:write"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "@commitlint/travis-cli": "^7.5.2",
+    "@types/jest": "^24.0.6",
+    "@types/node": "^10.12.26",
+    "husky": "^1.3.1",
+    "jest": "^24.1.0",
+    "lint-staged": "^8.1.4",
+    "prettier": "^1.16.4",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3.3333"
+  }
+}

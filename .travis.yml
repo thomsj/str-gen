@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "10"
+  - "8"
+  - "6.0.0"
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+script:
+  - npm test -- -- --runInBand
+  - commitlint-travis
