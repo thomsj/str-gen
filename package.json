@@ -51,14 +51,16 @@
   },
   "scripts": {
     "test": "npm run lint && tsc --noEmit && npm run jest",
-    "prepublishOnly": "npm run lint && tsc && npm run prettier:write && npm run jest",
+    "prepublishOnly": "npm run lint && npm run tsc && npm run jest",
     "lint": "npm run tslint && npm run prettier:list",
     "tslint": "tslint -c ./tslint.json '**/*.ts'",
     "prettier:list": "prettier -l '**/*.{js,json,md,ts}'",
     "prettier:write": "prettier --write './lib/**/*.{js,ts}'",
     "jest": "jest --collectCoverageFrom='src/**/*.ts'",
     "jest:watch": "npm run jest -- --watch",
-    "tsc": "tsc --sourceMap && npm run prettier:write"
+    "tsc": "tsc -p ./tsconfig-exclude-tests.json",
+    "posttsc": "npm run prettier:write",
+    "tsc:map": "npm run tsc -- --sourceMap"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
