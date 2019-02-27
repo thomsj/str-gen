@@ -1,10 +1,15 @@
+dist: trusty
 language: node_js
 node_js:
   - "10"
   - "8"
   - "6.0.0"
+addons:
+  sonarcloud:
+    organization: "thomsj-github"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 script:
   - npm test -- -- --runInBand
   - commitlint-travis
+  - sonar-scanner
