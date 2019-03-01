@@ -7,6 +7,8 @@ node_js:
 addons:
   sonarcloud:
     organization: "thomsj-github"
+    token:
+      secure: "HWx72wql0z59GHC1J2pC45jmXPEFBgJ11+OVUBKFwX21hhiJRpJ99UFOeknDVGG2xrchKFSPfI2n7hQWNI2Z7wPSnAl5ZQBOJFnOv+JLLys6mEVphrpXi4TOsTlcThKpiT2oloP0f3WcoPi2tCo0niM5qFgTKDkNDZUzFWDgf+AMUw8XCixqC57qH0nphLQUmkWJW14m/AgQ5vtE6Nihu+1RDiEjDzyrix3rtA03B/F0M+cTTKHs6joKFWwg714mSUF6T4ePD6NV8vgfNI8o2qCtKg7AdiCh1RMw4xiyX+ozesLDNVMKK+a9SbdB8UrHf/Vph7YxzND3qXKRKEWTjS0qKFx5mqR92Pp5+Ypgg6n5S8J0nJCEIuRSLHGzOJybYogUbPxaX6kS/cvXW5tJM6NGCp+5uLWojPMglCjgnuin+o4oDf+VKpJVTsBIxCMVX25vWDJhq7jDWZoQ/vG4bpIYSPp9DPEUKw6bbZgXwpYG3EJsRmr1PmkDDu/5ZOeU9wiwZydisf+T/8W5s/0J8XeyPqLMEb8G8KySDKs4iErt9TWuhU4VAX8qRfGB3oJP7USpg0x1LeCjZmeDSCDabej0uhFRzBEwMMQESnjC5E14hs2S7hDPe0VugBy4TN+aNo/cmbh5pQCncxrX99xM7TuOaFxn9M0ptXxGPL/XwC0="
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 script:
