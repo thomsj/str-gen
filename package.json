@@ -37,7 +37,8 @@
       "*.ts": [
         "eslint --fix",
         "prettier --write",
-        "git add"
+        "git add",
+        "tsc --noEmit"
       ],
       "*.test.ts": [
         "jest --runTestsByPath"
