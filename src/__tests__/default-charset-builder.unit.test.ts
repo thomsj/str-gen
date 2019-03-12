@@ -17,6 +17,17 @@ describe("DefaultCharsetBuilder", () => {
       const actual = charsetBuilder.getCharset();
       expect(actual).toEqual(expected);
     });
+
+    test.each([[0], [2]])(
+      "throws exception when length of string is not equal to 1 (length: %i)",
+      length => {
+        const str = "a".repeat(length);
+
+        expect(() => {
+          charsetBuilder.addSingle(str);
+        }).toThrowError(RangeError);
+      }
+    );
   });
 
   describe("#getCharset()", () => {
