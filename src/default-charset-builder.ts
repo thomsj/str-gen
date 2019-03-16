@@ -2,16 +2,15 @@ import { CharsetBuilder } from "./charset-builder";
 
 export class DefaultCharsetBuilder implements CharsetBuilder {
   private readonly charset: string[] = [];
+  private readonly validate: (chars: string[]) => void;
 
-  public addSingle(char: string): void {
-    this.validateLengthOf(char);
-    this.charset.push(char);
+  public constructor(validate: (chars: string[]) => void) {
+    this.validate = validate;
   }
 
-  private validateLengthOf(char: string): void {
-    if (char.length !== 1) {
-      throw new RangeError("The length of string `char` must be equal to 1.");
-    }
+  public addSingle(char: string): void {
+    this.validate([char]);
+    this.charset.push(char);
   }
 
   public getCharset(): string[] {

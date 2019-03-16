@@ -1,11 +1,16 @@
+import * as CharValidator from "../char-validator";
 import { CharsetBuilder } from "../charset-builder";
-import * as DefaultCharsetBuilderFactory from "../default-charset-builder-factory";
+import { DefaultCharsetBuilderFactory } from "../default-charset-builder-factory";
 
 describe("DefaultCharsetBuilder", () => {
+  const charsetBuilderFactory = new DefaultCharsetBuilderFactory(
+    CharValidator.validate
+  );
+
   let charsetBuilder: CharsetBuilder;
 
   beforeEach(() => {
-    charsetBuilder = DefaultCharsetBuilderFactory.createCharsetBuilder();
+    charsetBuilder = charsetBuilderFactory.createCharsetBuilder();
   });
 
   describe("#addSingle()", () => {
