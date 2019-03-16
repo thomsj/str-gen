@@ -9,8 +9,17 @@ export class DefaultCharsetBuilder implements CharsetBuilder {
   }
 
   public addSingle(char: string): void {
-    this.validate([char]);
-    this.charset.push(char);
+    const chars = [char];
+    this.addMultiple(chars);
+  }
+
+  public addMultiple(chars: string[]): void {
+    this.validate(chars);
+    this.addToCharset(chars);
+  }
+
+  private addToCharset(chars: string[]): void {
+    this.charset.push(...chars);
   }
 
   public getCharset(): string[] {
