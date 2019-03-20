@@ -3,7 +3,7 @@ import { CharRangeGenerator } from "./char-range-generator";
 import { DefaultCharRangeGenerator } from "./default-char-range-generator";
 
 export class DefaultCharRangeGeneratorFactory {
-  private validate: (chars: string[]) => void;
+  private readonly validate: (chars: string[]) => void;
 
   public constructor(validate: (chars: string[]) => void) {
     this.validate = validate;
