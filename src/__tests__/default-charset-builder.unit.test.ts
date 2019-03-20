@@ -1,10 +1,16 @@
 import * as CharValidator from "../char-validator";
 import { CharsetBuilder } from "../charset-builder";
+import { DefaultCharRangeGeneratorFactory } from "../default-char-range-generator-factory";
 import { DefaultCharsetBuilderFactory } from "../default-charset-builder-factory";
 
 describe("DefaultCharsetBuilder", () => {
-  const charsetBuilderFactory = new DefaultCharsetBuilderFactory(
+  const charRangeGeneratorFactory = new DefaultCharRangeGeneratorFactory(
     CharValidator.validate
+  );
+
+  const charsetBuilderFactory = new DefaultCharsetBuilderFactory(
+    CharValidator.validate,
+    charRangeGeneratorFactory.createCharRangeGenerator
   );
 
   let charsetBuilder: CharsetBuilder;
@@ -54,6 +60,35 @@ describe("DefaultCharsetBuilder", () => {
         expect(() => {
           charsetBuilder.addMultiple(chars);
         }).toThrowError(RangeError);
+      }
+    );
+  });
+
+  describe("#addCharRange()", () => {
+    test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
+      `throws exception when either \`from\` or \`to\` has length not equal to 1
+        (lengths: from = %i, to = %i)`,
+      (lengthOfFrom, lengthOfTo) => {
+        const from = "a".repeat(lengthOfFrom);
+        const to = "c".repeat(lengthOfTo);
+
+        expect(() => {
+          charsetBuilder.addCharRange(from, to);
+        }).toThrowError(RangeError);
+      }
+    );
+
+    test.each<[string, string, string[]]>([
+      ["a", "a", ["a"]],
+      ["a", "b", ["a", "b"]],
+      ["a", "c", ["a", "b", "c"]],
+    ])(
+      `adds all characters in range from \`from\` (inclusive) to \`to\` (inclusive)
+        (from: %s, to: %s, chars: [%s])`,
+      (from, to, expected) => {
+        charsetBuilder.addCharRange(from, to);
+        const actual = charsetBuilder.getCharset();
+        expect(actual).toEqual(expected);
       }
     );
   });
