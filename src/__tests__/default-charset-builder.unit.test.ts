@@ -4,6 +4,10 @@ import { DefaultCharRangeGeneratorFactory } from "../default-char-range-generato
 import { DefaultCharsetBuilderFactory } from "../default-charset-builder-factory";
 
 describe("DefaultCharsetBuilder", () => {
+  const a = "a";
+  const b = "b";
+  const c = "c";
+
   const charRangeGeneratorFactory = new DefaultCharRangeGeneratorFactory(
     CharValidator.validate
   );
@@ -21,7 +25,7 @@ describe("DefaultCharsetBuilder", () => {
 
   describe("#addSingle()", () => {
     test("adds character parameter to charset", () => {
-      const char = "a";
+      const char = a;
       const expected = [char];
 
       charsetBuilder.addSingle(char);
@@ -32,7 +36,7 @@ describe("DefaultCharsetBuilder", () => {
     test.each([[0], [2]])(
       "throws exception when length of string is not equal to 1 (length: %i)",
       length => {
-        const str = "a".repeat(length);
+        const str = a.repeat(length);
 
         expect(() => {
           charsetBuilder.addSingle(str);
@@ -43,7 +47,7 @@ describe("DefaultCharsetBuilder", () => {
 
   describe("#addMultiple()", () => {
     test("adds all characters in array parameter to charset", () => {
-      const chars = ["a", "b", "c"];
+      const chars = [a, b, c];
       const expected = chars;
 
       charsetBuilder.addMultiple(chars);
@@ -54,8 +58,8 @@ describe("DefaultCharsetBuilder", () => {
     test.each([[0], [2]])(
       "throws exception when any string element in `chars` has length not equal to 1 (length: %i)",
       length => {
-        const str = "b".repeat(length);
-        const chars = ["a", str, "c"];
+        const str = b.repeat(length);
+        const chars = [a, str, c];
 
         expect(() => {
           charsetBuilder.addMultiple(chars);
@@ -69,8 +73,8 @@ describe("DefaultCharsetBuilder", () => {
       `throws exception when either \`from\` or \`to\` has length not equal to 1
         (lengths: from = %i, to = %i)`,
       (lengthOfFrom, lengthOfTo) => {
-        const from = "a".repeat(lengthOfFrom);
-        const to = "c".repeat(lengthOfTo);
+        const from = a.repeat(lengthOfFrom);
+        const to = c.repeat(lengthOfTo);
 
         expect(() => {
           charsetBuilder.addCharRange(from, to);
@@ -79,9 +83,9 @@ describe("DefaultCharsetBuilder", () => {
     );
 
     test.each<[string, string, string[]]>([
-      ["a", "a", ["a"]],
-      ["a", "b", ["a", "b"]],
-      ["a", "c", ["a", "b", "c"]],
+      [a, a, [a]],
+      [a, b, [a, b]],
+      [a, c, [a, b, c]],
     ])(
       `adds all characters in range from \`from\` (inclusive) to \`to\` (inclusive)
         (from: %s, to: %s, chars: [%s])`,

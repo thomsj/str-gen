@@ -3,6 +3,10 @@ import * as CharValidator from "../char-validator";
 import { DefaultCharRangeGeneratorFactory } from "../default-char-range-generator-factory";
 
 describe("DefaultCharRangeGenerator", () => {
+  const a = "a";
+  const b = "b";
+  const c = "c";
+
   const charRangeGeneratorFactory = new DefaultCharRangeGeneratorFactory(
     CharValidator.validate
   );
@@ -12,22 +16,22 @@ describe("DefaultCharRangeGenerator", () => {
       `throws exception when either endpoint has length not equal to 1
         (lengths: from = %i, to = %i)`,
       (lengthOfFrom, lengthOfTo) => {
-        const from = "a".repeat(lengthOfFrom);
-        const to = "c".repeat(lengthOfTo);
+        const from = a.repeat(lengthOfFrom);
+        const to = c.repeat(lengthOfTo);
         const endpoints: CharRangeEndpoints = { from, to };
 
         expect(() => {
           charRangeGeneratorFactory.createCharRangeGenerator(endpoints);
-        }).toThrow(RangeError);
+        }).toThrowError(RangeError);
       }
     );
   });
 
   describe("#generateCharRange()", () => {
     test.each<[string, string, string[]]>([
-      ["a", "a", ["a"]],
-      ["a", "b", ["a", "b"]],
-      ["a", "c", ["a", "b", "c"]],
+      [a, a, [a]],
+      [a, b, [a, b]],
+      [a, c, [a, b, c]],
     ])(
       `returns all characters in range between endpoints (inclusive)
         (from: %s, to: %s, chars: [%s])`,
