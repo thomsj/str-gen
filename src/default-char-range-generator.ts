@@ -27,9 +27,12 @@ export class DefaultCharRangeGenerator implements CharRangeGenerator {
   private generateCodePointRange(): void {
     this.convertEndpointsFromCharsToCodePoints();
 
+    const sign =
+      this.codePointEndpoints.to >= this.codePointEndpoints.from ? 1 : -1;
+
     this.codePointRange = _.range(
       this.codePointEndpoints.from,
-      this.codePointEndpoints.to + 1
+      this.codePointEndpoints.to + sign
     );
   }
 

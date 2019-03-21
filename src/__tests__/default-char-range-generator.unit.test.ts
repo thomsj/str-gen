@@ -31,7 +31,9 @@ describe("DefaultCharRangeGenerator", () => {
     test.each<[string, string, string[]]>([
       [a, a, [a]],
       [a, b, [a, b]],
+      [b, a, [b, a]],
       [a, c, [a, b, c]],
+      [c, a, [c, b, a]],
     ])(
       `returns all characters in range between endpoints (inclusive)
         (from: %s, to: %s, chars: [%s])`,

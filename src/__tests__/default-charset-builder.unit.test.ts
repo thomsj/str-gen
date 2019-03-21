@@ -85,7 +85,9 @@ describe("DefaultCharsetBuilder", () => {
     test.each<[string, string, string[]]>([
       [a, a, [a]],
       [a, b, [a, b]],
+      [b, a, [b, a]],
       [a, c, [a, b, c]],
+      [c, a, [c, b, a]],
     ])(
       `adds all characters in range from \`from\` (inclusive) to \`to\` (inclusive)
         (from: %s, to: %s, chars: [%s])`,
