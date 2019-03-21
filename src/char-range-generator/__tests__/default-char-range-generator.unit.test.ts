@@ -1,5 +1,5 @@
+import * as CharValidator from "../../char-validator";
 import { CharRangeEndpoints } from "../char-range-endpoints";
-import * as CharValidator from "../char-validator";
 import { DefaultCharRangeGeneratorFactory } from "../default-char-range-generator-factory";
 
 describe("DefaultCharRangeGenerator", () => {

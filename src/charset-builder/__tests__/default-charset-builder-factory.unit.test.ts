@@ -1,5 +1,5 @@
-import * as CharValidator from "../char-validator";
-import { DefaultCharRangeGeneratorFactory } from "../default-char-range-generator-factory";
+import { DefaultCharRangeGeneratorFactory } from "../../char-range-generator/default-char-range-generator-factory";
+import * as CharValidator from "../../char-validator";
 import { DefaultCharsetBuilder } from "../default-charset-builder";
 import { DefaultCharsetBuilderFactory } from "../default-charset-builder-factory";
 

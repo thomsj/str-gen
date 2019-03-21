@@ -1,6 +1,6 @@
-import * as CharValidator from "../char-validator";
+import { DefaultCharRangeGeneratorFactory } from "../../char-range-generator/default-char-range-generator-factory";
+import * as CharValidator from "../../char-validator";
 import { CharsetBuilder } from "../charset-builder";
-import { DefaultCharRangeGeneratorFactory } from "../default-char-range-generator-factory";
 import { DefaultCharsetBuilderFactory } from "../default-charset-builder-factory";
 
 describe("DefaultCharsetBuilder", () => {

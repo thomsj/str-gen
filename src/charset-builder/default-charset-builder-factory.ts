@@ -1,5 +1,5 @@
-import { CharRangeEndpoints } from "./char-range-endpoints";
-import { CharRangeGenerator } from "./char-range-generator";
+import { CharRangeEndpoints } from "../char-range-generator/char-range-endpoints";
+import { CharRangeGenerator } from "../char-range-generator/char-range-generator";
 import { CharsetBuilder } from "./charset-builder";
 import { DefaultCharsetBuilder } from "./default-charset-builder";
 
