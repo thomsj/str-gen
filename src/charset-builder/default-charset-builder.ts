@@ -1,19 +1,18 @@
 import { CharRangeEndpoints } from "../char-range-generator/char-range-endpoints";
-import { CharRangeGenerator } from "../char-range-generator/char-range-generator";
+import {
+  CharRangeGeneratorCreator,
+  CharValidator,
+} from "../types/function-types";
 import { CharsetBuilder } from "./charset-builder";
 
 export class DefaultCharsetBuilder implements CharsetBuilder {
   private readonly charset: string[] = [];
-  private readonly validate: (chars: string[]) => void;
-  private readonly createCharRangeGenerator: (
-    charRangeEndpoints: CharRangeEndpoints
-  ) => CharRangeGenerator;
+  private readonly validate: CharValidator;
+  private readonly createCharRangeGenerator: CharRangeGeneratorCreator;
 
   public constructor(
-    validate: (chars: string[]) => void,
-    createCharRangeGenerator: (
-      charRangeEndpoints: CharRangeEndpoints
-    ) => CharRangeGenerator
+    validate: CharValidator,
+    createCharRangeGenerator: CharRangeGeneratorCreator
   ) {
     this.validate = validate;
     this.createCharRangeGenerator = createCharRangeGenerator;

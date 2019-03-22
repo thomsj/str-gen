@@ -1,4 +1,5 @@
 import * as _ from "lodash";
+import { CharValidator } from "../types/function-types";
 import { CharRangeEndpoints } from "./char-range-endpoints";
 import { CharRangeGenerator } from "./char-range-generator";
 import { CodePointRangeEndpoints } from "./code-point-range-endpoints";
@@ -11,7 +12,7 @@ export class DefaultCharRangeGenerator implements CharRangeGenerator {
 
   public constructor(
     charEndpoints: CharRangeEndpoints,
-    validate: (chars: string[]) => void
+    validate: CharValidator
   ) {
     this.charEndpoints = charEndpoints;
     const charsToValidate = [charEndpoints.from, charEndpoints.to];
