@@ -1,4 +1,4 @@
-import * as CharValidator from "../../char-validator";
+import * as DefaultCharValidator from "../../default-char-validator";
 import { CharRangeEndpoints } from "../char-range-endpoints";
 import { DefaultCharRangeGeneratorFactory } from "../default-char-range-generator-factory";
 
@@ -8,7 +8,7 @@ describe("DefaultCharRangeGenerator", () => {
   const c = "c";
 
   const charRangeGeneratorFactory = new DefaultCharRangeGeneratorFactory(
-    CharValidator.validate
+    DefaultCharValidator.validate
   );
 
   describe("#constructor()", () => {

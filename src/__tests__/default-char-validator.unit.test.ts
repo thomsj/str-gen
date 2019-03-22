@@ -1,6 +1,6 @@
-import * as CharValidator from "../char-validator";
+import * as DefaultCharValidator from "../default-char-validator";
 
-describe("CharValidator", () => {
+describe("DefaultCharValidator", () => {
   describe(".validate()", () => {
     test.each([[0], [2]])(
       "throws exception when any string element in `chars` has length not equal to 1 (length: %i)",
@@ -9,7 +9,7 @@ describe("CharValidator", () => {
         const chars = [str];
 
         expect(() => {
-          CharValidator.validate(chars);
+          DefaultCharValidator.validate(chars);
         }).toThrowError(RangeError);
       }
     );
