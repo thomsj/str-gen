@@ -6,9 +6,6 @@ import { CodePointRangeEndpoints } from "./code-point-range-endpoints";
 
 export class DefaultCharRangeGenerator implements CharRangeGenerator {
   private readonly charEndpoints: CharRangeEndpoints;
-  private codePointEndpoints!: CodePointRangeEndpoints;
-  private codePointRange!: number[];
-  private charRange!: string[];
 
   public constructor(
     charEndpoints: CharRangeEndpoints,
@@ -20,38 +17,39 @@ export class DefaultCharRangeGenerator implements CharRangeGenerator {
   }
 
   public generateCharRange(): string[] {
-    this.generateCodePointRange();
-    this.mapCodePointRangeToCharRange();
-    return this.charRange;
+    const codePointRange = this.generateCodePointRange();
+    const charRange = this.toCharRangeFrom(codePointRange);
+    return charRange;
   }
 
-  private generateCodePointRange(): void {
-    this.convertEndpointsFromCharsToCodePoints();
+  private generateCodePointRange(): number[] {
+    const codePointEndpoints = this.convertEndpointsFromCharsToCodePoints();
+    const sign = codePointEndpoints.to >= codePointEndpoints.from ? 1 : -1;
 
-    const sign =
-      this.codePointEndpoints.to >= this.codePointEndpoints.from ? 1 : -1;
-
-    this.codePointRange = _.range(
-      this.codePointEndpoints.from,
-      this.codePointEndpoints.to + sign
+    const codePointRange = _.range(
+      codePointEndpoints.from,
+      codePointEndpoints.to + sign
     );
+
+    return codePointRange;
   }
 
-  private convertEndpointsFromCharsToCodePoints(): void {
-    this.codePointEndpoints = {
+  private convertEndpointsFromCharsToCodePoints(): CodePointRangeEndpoints {
+    const codePointEndpoints: CodePointRangeEndpoints = {
       from: DefaultCharRangeGenerator.toCodePointFrom(this.charEndpoints.from),
       to: DefaultCharRangeGenerator.toCodePointFrom(this.charEndpoints.to),
     };
+
+    return codePointEndpoints;
   }
 
   private static toCodePointFrom(char: string): number {
     return char.codePointAt(0) as number;
   }
 
-  private mapCodePointRangeToCharRange(): void {
-    this.charRange = this.codePointRange.map(
-      DefaultCharRangeGenerator.toCharFrom
-    );
+  private toCharRangeFrom(codePointRange: number[]): string[] {
+    const charRange = codePointRange.map(DefaultCharRangeGenerator.toCharFrom);
+    return charRange;
   }
 
   private static toCharFrom(codePoint: number): string {
