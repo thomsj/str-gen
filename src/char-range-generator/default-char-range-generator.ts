@@ -18,29 +18,20 @@ export class DefaultCharRangeGenerator implements CharRangeGenerator {
 
   public generateCharRange(): string[] {
     const codePointRange = this.generateCodePointRange();
-    const charRange = this.toCharRangeFrom(codePointRange);
-    return charRange;
+    return this.toCharRangeFrom(codePointRange);
   }
 
   private generateCodePointRange(): number[] {
     const codePointEndpoints = this.convertEndpointsFromCharsToCodePoints();
     const sign = codePointEndpoints.to >= codePointEndpoints.from ? 1 : -1;
-
-    const codePointRange = _.range(
-      codePointEndpoints.from,
-      codePointEndpoints.to + sign
-    );
-
-    return codePointRange;
+    return _.range(codePointEndpoints.from, codePointEndpoints.to + sign);
   }
 
   private convertEndpointsFromCharsToCodePoints(): CodePointRangeEndpoints {
-    const codePointEndpoints: CodePointRangeEndpoints = {
+    return {
       from: DefaultCharRangeGenerator.toCodePointFrom(this.charEndpoints.from),
       to: DefaultCharRangeGenerator.toCodePointFrom(this.charEndpoints.to),
     };
-
-    return codePointEndpoints;
   }
 
   private static toCodePointFrom(char: string): number {
@@ -48,8 +39,7 @@ export class DefaultCharRangeGenerator implements CharRangeGenerator {
   }
 
   private toCharRangeFrom(codePointRange: number[]): string[] {
-    const charRange = codePointRange.map(DefaultCharRangeGenerator.toCharFrom);
-    return charRange;
+    return codePointRange.map(DefaultCharRangeGenerator.toCharFrom);
   }
 
   private static toCharFrom(codePoint: number): string {
