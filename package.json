@@ -57,8 +57,7 @@
     "eslint": "eslint './src/**/*.ts'",
     "prettier:list": "prettier -l '**/*.{js,json,md,ts}'",
     "prettier:write": "prettier --write './lib/**/*.{js,ts}'",
-    "jest": "jest --collectCoverageFrom='src/**/*.ts'",
-    "jest:watch": "npm run jest -- --watch",
+    "jest": "jest --coverage --collectCoverageFrom='src/**/*.ts'",
     "tsc": "tsc -p ./tsconfig-exclude-tests.json",
     "posttsc": "npm run prettier:write",
     "tsc:map": "npm run tsc -- --sourceMap"
