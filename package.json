@@ -53,9 +53,9 @@
   "scripts": {
     "test": "npm run lint && tsc --noEmit && npm run jest",
     "prepublishOnly": "npm run lint && npm run tsc && npm run jest",
-    "lint": "npm run eslint && npm run prettier:list",
+    "lint": "npm run eslint && npm run prettier:check",
     "eslint": "eslint './src/**/*.ts'",
-    "prettier:list": "prettier -l '**/*.{js,json,md,ts}'",
+    "prettier:check": "prettier -c '**/*.{js,json,md,ts}'",
     "prettier:write": "prettier --write './lib/**/*.{js,ts}'",
     "jest": "jest --coverage --collectCoverageFrom='src/**/*.ts'",
     "tsc": "tsc -p ./tsconfig-exclude-tests.json",
