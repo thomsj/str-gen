@@ -12,9 +12,13 @@ describe("DefaultCharsetBuilder", () => {
     DefaultCharValidator.validate
   );
 
+  const createCharRangeGenerator = charRangeGeneratorFactory.createCharRangeGenerator.bind(
+    charRangeGeneratorFactory
+  );
+
   const charsetBuilderFactory = new DefaultCharsetBuilderFactory(
     DefaultCharValidator.validate,
-    charRangeGeneratorFactory.createCharRangeGenerator
+    createCharRangeGenerator
   );
 
   let charsetBuilder: CharsetBuilder;
@@ -69,6 +73,14 @@ describe("DefaultCharsetBuilder", () => {
   });
 
   describe("#addCharRange()", () => {
+    test("calls `validate` function property of `charRangeGeneratorFactory`", () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const spy = jest.spyOn(charRangeGeneratorFactory, "validate" as any);
+
+      charsetBuilder.addCharRange(a, c);
+      expect(spy).toHaveBeenCalledWith([a, c]);
+    });
+
     test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
       `throws exception when either \`from\` or \`to\` has length not equal to 1
         (lengths: from = %i, to = %i)`,
