@@ -12,7 +12,7 @@ export class DefaultCharRangeGenerator implements CharRangeGenerator {
     validate: CharValidator
   ) {
     this.charEndpoints = charEndpoints;
-    const charsToValidate = [charEndpoints.from, charEndpoints.to];
+    const charsToValidate = [charEndpoints.first, charEndpoints.last];
     validate(charsToValidate);
   }
 
@@ -23,14 +23,16 @@ export class DefaultCharRangeGenerator implements CharRangeGenerator {
 
   private generateCodePointRange(): number[] {
     const codePointEndpoints = this.convertEndpointsFromCharsToCodePoints();
-    const sign = codePointEndpoints.to >= codePointEndpoints.from ? 1 : -1;
-    return _.range(codePointEndpoints.from, codePointEndpoints.to + sign);
+    const sign = codePointEndpoints.last >= codePointEndpoints.first ? 1 : -1;
+    return _.range(codePointEndpoints.first, codePointEndpoints.last + sign);
   }
 
   private convertEndpointsFromCharsToCodePoints(): CodePointRangeEndpoints {
     return {
-      from: DefaultCharRangeGenerator.toCodePointFrom(this.charEndpoints.from),
-      to: DefaultCharRangeGenerator.toCodePointFrom(this.charEndpoints.to),
+      first: DefaultCharRangeGenerator.toCodePointFrom(
+        this.charEndpoints.first
+      ),
+      last: DefaultCharRangeGenerator.toCodePointFrom(this.charEndpoints.last),
     };
   }
 

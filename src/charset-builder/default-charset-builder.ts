@@ -28,8 +28,8 @@ export class DefaultCharsetBuilder implements CharsetBuilder {
     this.addToCharset(chars);
   }
 
-  public addCharRange(from: string, to: string): void {
-    const charRangeEndpoints: CharRangeEndpoints = { from, to };
+  public addCharRangeBetween(first: string, last: string): void {
+    const charRangeEndpoints: CharRangeEndpoints = { first, last };
 
     const charRangeGenerator = this.createCharRangeGenerator(
       charRangeEndpoints

@@ -11,8 +11,8 @@ describe("DefaultCharRangeGeneratorFactory", () => {
       );
 
       const charRangeEndpoints: CharRangeEndpoints = {
-        from: "a",
-        to: "b",
+        first: "a",
+        last: "b",
       };
 
       const charRangeGenerator = charRangeGeneratorFactory.createCharRangeGenerator(

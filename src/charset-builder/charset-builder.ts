@@ -1,6 +1,6 @@
 export interface CharsetBuilder {
   addSingle(char: string): void;
   addMultiple(chars: string[]): void;
-  addCharRange(from: string, to: string): void;
+  addCharRangeBetween(first: string, last: string): void;
   getCharset(): string[];
 }

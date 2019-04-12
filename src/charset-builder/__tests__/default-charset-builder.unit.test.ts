@@ -72,24 +72,24 @@ describe("DefaultCharsetBuilder", () => {
     );
   });
 
-  describe("#addCharRange()", () => {
+  describe("#addCharRangeBetween()", () => {
     test("calls `validate` function property of `charRangeGeneratorFactory`", () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const spy = jest.spyOn(charRangeGeneratorFactory, "validate" as any);
 
-      charsetBuilder.addCharRange(a, c);
+      charsetBuilder.addCharRangeBetween(a, c);
       expect(spy).toHaveBeenCalledWith([a, c]);
     });
 
     test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
-      `throws exception when either \`from\` or \`to\` has length not equal to 1
-        (lengths: from = %i, to = %i)`,
-      (lengthOfFrom, lengthOfTo) => {
-        const from = a.repeat(lengthOfFrom);
-        const to = c.repeat(lengthOfTo);
+      `throws exception when either \`first\` or \`last\` has length not equal to 1
+        (lengths: first = %i, last = %i)`,
+      (lengthOfFirst, lengthOfLast) => {
+        const first = a.repeat(lengthOfFirst);
+        const last = c.repeat(lengthOfLast);
 
         expect(() => {
-          charsetBuilder.addCharRange(from, to);
+          charsetBuilder.addCharRangeBetween(first, last);
         }).toThrowError(RangeError);
       }
     );
@@ -101,10 +101,10 @@ describe("DefaultCharsetBuilder", () => {
       [a, c, [a, b, c]],
       [c, a, [c, b, a]],
     ])(
-      `adds all characters in range from \`from\` (inclusive) to \`to\` (inclusive)
-        (from: %s, to: %s, chars: [%s])`,
-      (from, to, expected) => {
-        charsetBuilder.addCharRange(from, to);
+      `adds all characters in range from \`first\` to \`last\`
+        (first: %s, last: %s, chars: [%s])`,
+      (first, last, expected) => {
+        charsetBuilder.addCharRangeBetween(first, last);
         const actual = charsetBuilder.getCharset();
         expect(actual).toEqual(expected);
       }
