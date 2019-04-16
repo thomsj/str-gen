@@ -83,7 +83,7 @@ describe("DefaultCharsetBuilder", () => {
 
     test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
       `throws exception when either \`first\` or \`last\` has length not equal to 1
-        (lengths: first = %i, last = %i)`,
+        (lengths: \`first\` = %i, \`last\` = %i)`,
       (lengthOfFirst, lengthOfLast) => {
         const first = a.repeat(lengthOfFirst);
         const last = c.repeat(lengthOfLast);
@@ -102,7 +102,7 @@ describe("DefaultCharsetBuilder", () => {
       [c, a, [c, b, a]],
     ])(
       `adds all characters in range from \`first\` to \`last\`
-        (first: %s, last: %s, chars: [%s])`,
+        (\`first\`: %j, \`last\`: %j, chars: %j)`,
       (first, last, expected) => {
         charsetBuilder.addCharRangeBetween(first, last);
         const actual = charsetBuilder.getCharset();

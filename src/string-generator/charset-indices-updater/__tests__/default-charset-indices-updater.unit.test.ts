@@ -62,7 +62,7 @@ describe("DefaultCharsetIndicesUpdater", () => {
     ];
 
     describe.each(testData)(
-      "with `charsetLength`: %d",
+      "with `charsetLength`: %i",
       (charsetLength, dataForCurrentLength) => {
         test.each(dataForCurrentLength)(
           "with `charsetIndices`: %j, returns %j",

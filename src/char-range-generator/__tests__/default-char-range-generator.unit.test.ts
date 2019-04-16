@@ -14,7 +14,7 @@ describe("DefaultCharRangeGenerator", () => {
   describe("#constructor()", () => {
     test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
       `throws exception when either endpoint has length not equal to 1
-        (lengths: first = %i, last = %i)`,
+        (lengths: \`first\` = %i, \`last\` = %i)`,
       (lengthOfFirst, lengthOfLast) => {
         const first = a.repeat(lengthOfFirst);
         const last = c.repeat(lengthOfLast);
@@ -36,7 +36,7 @@ describe("DefaultCharRangeGenerator", () => {
       [c, a, [c, b, a]],
     ])(
       `returns all characters in range between endpoints (inclusive)
-        (first: %s, last: %s, chars: [%s])`,
+        (\`first\`: %j, \`last\`: %j, chars: %j)`,
       (first, last, expected) => {
         const endpoints: CharRangeEndpoints = { first, last };
 

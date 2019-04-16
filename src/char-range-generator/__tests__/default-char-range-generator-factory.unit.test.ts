@@ -5,7 +5,7 @@ import { DefaultCharRangeGeneratorFactory } from "../default-char-range-generato
 
 describe("DefaultCharRangeGeneratorFactory", () => {
   describe("#createCharRangeGenerator()", () => {
-    test("creates DefaultCharRangeGenerator instance", () => {
+    test("creates `DefaultCharRangeGenerator` instance", () => {
       const charRangeGeneratorFactory = new DefaultCharRangeGeneratorFactory(
         DefaultCharValidator.validate
       );
