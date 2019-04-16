@@ -37,16 +37,15 @@ describe("DefaultCharsetBuilder", () => {
       expect(actual).toEqual(expected);
     });
 
-    test.each([[0], [2]])(
-      "throws exception when length of string is not equal to 1 (length: %i)",
-      length => {
+    describe("throws exception when length of string is not equal to 1", () => {
+      test.each([[0], [2]])("length: %i", length => {
         const str = a.repeat(length);
 
         expect(() => {
           charsetBuilder.addSingle(str);
         }).toThrowError(RangeError);
-      }
-    );
+      });
+    });
   });
 
   describe("#addMultiple()", () => {
@@ -59,17 +58,16 @@ describe("DefaultCharsetBuilder", () => {
       expect(actual).toEqual(expected);
     });
 
-    test.each([[0], [2]])(
-      "throws exception when any string element in `chars` has length not equal to 1 (length: %i)",
-      length => {
+    describe("throws exception when any string element in `chars` has length not equal to 1", () => {
+      test.each([[0], [2]])("length: %i", length => {
         const str = b.repeat(length);
         const chars = [a, str, c];
 
         expect(() => {
           charsetBuilder.addMultiple(chars);
         }).toThrowError(RangeError);
-      }
-    );
+      });
+    });
   });
 
   describe("#addCharRangeBetween()", () => {
@@ -81,34 +79,33 @@ describe("DefaultCharsetBuilder", () => {
       expect(spy).toHaveBeenCalledWith([a, c]);
     });
 
-    test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
-      `throws exception when either \`first\` or \`last\` has length not equal to 1
-        (lengths: \`first\` = %i, \`last\` = %i)`,
-      (lengthOfFirst, lengthOfLast) => {
-        const first = a.repeat(lengthOfFirst);
-        const last = c.repeat(lengthOfLast);
+    describe("throws exception when either `first` or `last` has length not equal to 1", () => {
+      test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
+        "lengths: `first` = %i, `last` = %i",
+        (lengthOfFirst, lengthOfLast) => {
+          const first = a.repeat(lengthOfFirst);
+          const last = c.repeat(lengthOfLast);
 
-        expect(() => {
-          charsetBuilder.addCharRangeBetween(first, last);
-        }).toThrowError(RangeError);
-      }
-    );
+          expect(() => {
+            charsetBuilder.addCharRangeBetween(first, last);
+          }).toThrowError(RangeError);
+        }
+      );
+    });
 
-    test.each<[string, string, string[]]>([
-      [a, a, [a]],
-      [a, b, [a, b]],
-      [b, a, [b, a]],
-      [a, c, [a, b, c]],
-      [c, a, [c, b, a]],
-    ])(
-      `adds all characters in range from \`first\` to \`last\`
-        (\`first\`: %j, \`last\`: %j, chars: %j)`,
-      (first, last, expected) => {
+    describe("adds all characters in range, from `first` to `last`, to charset", () => {
+      test.each<[string, string, string[]]>([
+        [a, a, [a]],
+        [a, b, [a, b]],
+        [b, a, [b, a]],
+        [a, c, [a, b, c]],
+        [c, a, [c, b, a]],
+      ])("`first`: %j, `last`: %j, chars: %j", (first, last, expected) => {
         charsetBuilder.addCharRangeBetween(first, last);
         const actual = charsetBuilder.getCharset();
         expect(actual).toEqual(expected);
-      }
-    );
+      });
+    });
   });
 
   describe("#getCharset()", () => {

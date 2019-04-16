@@ -101,22 +101,23 @@ describe("StringGeneratorBuilder", () => {
       expect(builder).toBe(stringGeneratorBuilder);
     });
 
-    test.each([[0], [2]])(
-      "throws exception when length of string is not equal to 1 (length: %i)",
-      length => {
+    describe("throws exception when length of string is not equal to 1", () => {
+      test.each([[0], [2]])("length: %i", length => {
         const str = a.repeat(length);
 
         expect(() => {
           charsetBuilder.this(str);
         }).toThrowError(RangeError);
-      }
-    );
+      });
+    });
 
-    test.each([[a], [b], [c]])("adds char to charset (char: %j)", char => {
-      const expected = char;
-      const stringGenerator = charsetBuilder.this(char).now();
-      const actual = stringGenerator.generateString();
-      expect(actual).toBe(expected);
+    describe("adds char to charset", () => {
+      test.each([[a], [b], [c]])("char: %j", char => {
+        const expected = char;
+        const stringGenerator = charsetBuilder.this(char).now();
+        const actual = stringGenerator.generateString();
+        expect(actual).toBe(expected);
+      });
     });
   });
 
@@ -129,9 +130,8 @@ describe("StringGeneratorBuilder", () => {
       expect(builder).toBe(stringGeneratorBuilder);
     });
 
-    test.each([[0], [2]])(
-      "throws exception when any string element in `chars` has length not equal to 1 (length: %i)",
-      length => {
+    describe("throws exception when any string element in `chars` has length not equal to 1", () => {
+      test.each([[0], [2]])("length: %i", length => {
         const str = b.repeat(length);
         const chars = [a, str, c];
         const builder = stringGeneratorBuilder.withCharsetConsistingOf();
@@ -139,8 +139,8 @@ describe("StringGeneratorBuilder", () => {
         expect(() => {
           builder.these(chars);
         }).toThrowError(RangeError);
-      }
-    );
+      });
+    });
 
     test("adds chars to charset", () => {
       const chars = [a, b, c];
@@ -289,19 +289,20 @@ describe("StringGeneratorBuilder", () => {
       expect(builder).toBe(stringGeneratorBuilder);
     });
 
-    test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
-      `throws exception when either endpoint has length not equal to 1
-        (lengths: \`first\` = %i, \`last\` = %i)`,
-      (lengthOfFirst, lengthOfLast) => {
-        const first = a.repeat(lengthOfFirst);
-        const last = c.repeat(lengthOfLast);
-        const builder = stringGeneratorBuilder.withCharsetConsistingOf();
+    describe("throws exception when either endpoint has length not equal to 1", () => {
+      test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
+        "lengths: `first` = %i, `last` = %i",
+        (lengthOfFirst, lengthOfLast) => {
+          const first = a.repeat(lengthOfFirst);
+          const last = c.repeat(lengthOfLast);
+          const builder = stringGeneratorBuilder.withCharsetConsistingOf();
 
-        expect(() => {
-          builder.theRangeOfCharsBetween(first, last);
-        }).toThrowError(RangeError);
-      }
-    );
+          expect(() => {
+            builder.theRangeOfCharsBetween(first, last);
+          }).toThrowError(RangeError);
+        }
+      );
+    });
 
     test("calls `addCharRangeBetween()` method of `charsetBuilder`", () => {
       const first = a;

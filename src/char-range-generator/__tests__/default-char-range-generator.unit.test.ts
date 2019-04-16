@@ -12,32 +12,31 @@ describe("DefaultCharRangeGenerator", () => {
   );
 
   describe("#constructor()", () => {
-    test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
-      `throws exception when either endpoint has length not equal to 1
-        (lengths: \`first\` = %i, \`last\` = %i)`,
-      (lengthOfFirst, lengthOfLast) => {
-        const first = a.repeat(lengthOfFirst);
-        const last = c.repeat(lengthOfLast);
-        const endpoints: CharRangeEndpoints = { first, last };
+    describe("throws exception when either endpoint has length not equal to 1", () => {
+      test.each([[0, 1], [2, 1], [1, 0], [1, 2]])(
+        "lengths: `first` = %i, `last` = %i",
+        (lengthOfFirst, lengthOfLast) => {
+          const first = a.repeat(lengthOfFirst);
+          const last = c.repeat(lengthOfLast);
+          const endpoints: CharRangeEndpoints = { first, last };
 
-        expect(() => {
-          charRangeGeneratorFactory.createCharRangeGenerator(endpoints);
-        }).toThrowError(RangeError);
-      }
-    );
+          expect(() => {
+            charRangeGeneratorFactory.createCharRangeGenerator(endpoints);
+          }).toThrowError(RangeError);
+        }
+      );
+    });
   });
 
   describe("#generateCharRange()", () => {
-    test.each<[string, string, string[]]>([
-      [a, a, [a]],
-      [a, b, [a, b]],
-      [b, a, [b, a]],
-      [a, c, [a, b, c]],
-      [c, a, [c, b, a]],
-    ])(
-      `returns all characters in range between endpoints (inclusive)
-        (\`first\`: %j, \`last\`: %j, chars: %j)`,
-      (first, last, expected) => {
+    describe("returns all characters in range between endpoints (inclusive)", () => {
+      test.each<[string, string, string[]]>([
+        [a, a, [a]],
+        [a, b, [a, b]],
+        [b, a, [b, a]],
+        [a, c, [a, b, c]],
+        [c, a, [c, b, a]],
+      ])("`first`: %j, `last`: %j, chars: %j", (first, last, expected) => {
         const endpoints: CharRangeEndpoints = { first, last };
 
         const charRangeGenerator = charRangeGeneratorFactory.createCharRangeGenerator(
@@ -46,7 +45,7 @@ describe("DefaultCharRangeGenerator", () => {
 
         const actual = charRangeGenerator.generateCharRange();
         expect(actual).toEqual(expected);
-      }
-    );
+      });
+    });
   });
 });
